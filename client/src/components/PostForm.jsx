@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useApi from '../hooks/useApi';
-import { usePosts } from './PostContext';
+import { usePosts } from '../context/PostContext';
 
 const PostForm = () => {
   const { id } = useParams(); // if present, we're editing
