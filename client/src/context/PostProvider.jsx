@@ -18,15 +18,15 @@ const PostProvider = ({ children }) => {
         ]);
         setPosts(postData);
         setCategories(categoryData);
-      } catch (_err) {
-        setError('Failed to load posts or categories');
+      } catch {
+        setError('Failed to load posts or categories'); // ✅ removed unused _err
       } finally {
         setLoading(false);
       }
     };
 
     fetchData();
-  }, [get]); // ✅ added 'get' to dependency array
+  }, [get]); // ✅ dependency array is correct
 
   return (
     <PostContext.Provider value={{ posts, setPosts, categories, loading, error }}>
