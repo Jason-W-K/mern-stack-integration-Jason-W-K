@@ -14,7 +14,7 @@ const PostProvider = ({ children }) => {
       try {
         const [postData, categoryData] = await Promise.all([
           get('/posts'),
-          get('/categories')
+          get('/categories'),
         ]);
         setPosts(postData);
         setCategories(categoryData);
@@ -26,7 +26,7 @@ const PostProvider = ({ children }) => {
     };
 
     fetchData();
-  }, [get]);
+  }, [get]); // ✅ added 'get' to dependency array
 
   return (
     <PostContext.Provider value={{ posts, setPosts, categories, loading, error }}>

@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import useApi from '../hooks/useApi';
-import PostProvider from './PostProvider';
 import { usePosts } from './PostContext';
 
 const PostForm = () => {
@@ -24,7 +23,7 @@ const PostForm = () => {
 
     try {
       const res = await axios.post('/api/upload', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' }
+        headers: { 'Content-Type': 'multipart/form-data' },
       });
       setImageUrl(res.data.imageUrl);
     } catch (err) {
@@ -36,7 +35,7 @@ const PostForm = () => {
   useEffect(() => {
     if (id) {
       get(`/posts/${id}`)
-        .then(post => {
+        .then((post) => {
           setTitle(post.title);
           setBody(post.body);
           setCategoryId(post.category?._id || '');
@@ -44,7 +43,7 @@ const PostForm = () => {
         })
         .catch(() => setStatus('Error loading post'));
     }
-  }, [id]);
+  }, [id, get]); // ✅ added 'get' to dependency array
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -52,7 +51,7 @@ const PostForm = () => {
       title,
       body,
       category: categoryId,
-      imageUrl // ✅ include image URL
+      imageUrl,
     };
 
     try {
