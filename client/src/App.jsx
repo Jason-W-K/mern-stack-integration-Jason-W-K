@@ -4,8 +4,8 @@ import Navbar from './components/Navbar';
 import PostList from './components/PostList';
 import SinglePost from './components/SinglePost';
 import PostForm from './components/PostForm';
-import PostProvider from './context/PostContext'; // ✅ default import
-import AuthProvider from './context/AuthContext'; // ✅ default import
+import PostProvider from './context/PostProvider'; // ✅ now importing the actual provider
+import AuthProvider from './context/AuthProvider'; // ✅ now importing the actual provider
 import PrivateRoute from './components/PrivateRoute';
 
 import Login from './pages/Login';
