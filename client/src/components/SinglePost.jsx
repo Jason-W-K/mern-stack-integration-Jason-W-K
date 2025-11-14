@@ -22,7 +22,7 @@ const SinglePost = () => {
     };
 
     fetchPost();
-  }, [id]);
+  }, [id, get]); // ✅ added 'get' to dependency array
 
   if (status === 'loading') return <p>Loading post...</p>;
   if (status === 'error') return <p>Failed to load post.</p>;
