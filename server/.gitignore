@@ -1,4 +1,11 @@
+# Ignore real environment files
 .env
-.env.example
+.env.local
+.env.production
+
+# Allow the safe example file
+!server/.env.example
+
+# Ignore dependencies and logs
 node_modules
-logs    
+logs
