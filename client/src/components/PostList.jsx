@@ -14,9 +14,9 @@ const PostList = () => {
   useEffect(() => {
     setLoading(true);
     get(`/posts?page=${page}&limit=5`)
-      .then(data => {
-        console.log('Fetched posts:', data); // ✅ Debug log
-        setPosts(Array.isArray(data.posts) ? data.posts : []); // ✅ Defensive check
+      .then((data) => {
+        console.log('Fetched posts:', data);
+        setPosts(Array.isArray(data.posts) ? data.posts : []);
         setTotalPages(Math.ceil((data.total || 0) / 5));
         setLoading(false);
       })
@@ -24,19 +24,19 @@ const PostList = () => {
         setError('Failed to load posts');
         setLoading(false);
       });
-  }, [page]);
+  }, [page, get]); // ✅ added 'get' to dependency array
 
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
 
     const originalPosts = [...posts];
-    setPosts(posts.filter(p => p._id !== id)); // optimistic update
+    setPosts(posts.filter((p) => p._id !== id));
 
     try {
       await del(`/posts/${id}`);
     } catch (err) {
       console.error('Error deleting post:', err);
-      setPosts(originalPosts); // rollback
+      setPosts(originalPosts);
     }
   };
 
@@ -48,8 +48,11 @@ const PostList = () => {
       <h2>All Posts</h2>
 
       {Array.isArray(posts) && posts.length > 0 ? (
-        posts.map(post => (
-          <div key={post._id} style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}>
+        posts.map((post) => (
+          <div
+            key={post._id}
+            style={{ border: '1px solid #ccc', padding: '1rem', marginBottom: '1rem' }}
+          >
             <h3>{post.title}</h3>
             <p>{post.body}</p>
             <small>Category: {post.category?.name}</small>
@@ -76,7 +79,7 @@ const PostList = () => {
               color: page === i + 1 ? '#fff' : '#000',
               border: 'none',
               borderRadius: '4px',
-              cursor: 'pointer'
+              cursor: 'pointer',
             }}
           >
             {i + 1}
